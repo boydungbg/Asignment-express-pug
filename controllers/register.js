@@ -1,5 +1,4 @@
 var userService = require("../services/user.js");
-var { body, validationResult } = require("express-validator");
 
 module.exports.registerGet = (req, res) => {
   res.render("cozastore/register", {
@@ -7,7 +6,18 @@ module.exports.registerGet = (req, res) => {
   });
 };
 
-module.exports.registerPost = (req, res) => {
-  userService.insert(req.body);
+module.exports.registerPost = async (req, res) => {
+  var user = await userService
+    .insert(req.body)
+    .then((data) => data)
+    .catch((err) => console.log(err));
+  // console.log(user);
+  if (user == null) {
+    res.render("cozastore/register", {
+      title: "Register",
+      valueUser: req.body,
+    });
+    return;
+  }
   res.redirect("/cozastore/login");
 };

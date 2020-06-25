@@ -3,7 +3,9 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var mongosee = require("./models/db.js");
+var bodyParser = require("body-parser");
+var session = require("express-session");
+require("./models/db.js");
 
 var indexRouter = require("./routes/cozastore/index.js");
 var productRouter = require("./routes/cozastore/product.js");
@@ -16,6 +18,7 @@ var registerRouter = require("./routes/register.js");
 var dashboardRouter = require("./routes/admin/index.js");
 var managementUsersRouter = require("./routes/admin/user.js");
 var managementProductRouter = require("./routes/admin/product.js");
+var middlewareAutithencation = require("./middlewares/authentication.js");
 
 const { match } = require("assert");
 const { error } = require("console");
@@ -26,23 +29,58 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+function randomSecret(length) {
+  var cheracter =
+    "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  var sec = "";
+  for (let index = 0; index < length; index++) {
+    sec += cheracter[Math.floor(Math.random() * cheracter.length)];
+  }
+  return sec;
+}
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(randomSecret(10)));
+app.use(
+  session({
+    secret: randomSecret(10),
+    saveUninitialized: false,
+    resave: false,
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/cozastore/index", indexRouter);
 app.use("/cozastore/product", productRouter);
 app.use("/cozastore/blog", blogRouter);
 app.use("/cozastore/about", aboutRouter);
 app.use("/cozastore/contact", contactRouter);
-app.use("/cozastore/shoping-cart", shoppingCartRouter);
+app.use(
+  "/cozastore/shoping-cart",
+  middlewareAutithencation.authentication,
+  shoppingCartRouter
+);
 app.use("/cozastore", loginRouter);
 app.use("/cozastore", registerRouter);
-app.use("/admin/index", dashboardRouter);
-app.use("/admin/user", managementUsersRouter);
-app.use("/admin/product", managementProductRouter);
+app.use(
+  "/admin/index",
+  middlewareAutithencation.authentication,
+  dashboardRouter
+);
+app.use(
+  "/admin/user",
+  middlewareAutithencation.authentication,
+  managementUsersRouter
+);
+app.use(
+  "/admin/product",
+  middlewareAutithencation.authentication,
+  managementProductRouter
+);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

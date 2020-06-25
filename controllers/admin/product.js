@@ -1,5 +1,5 @@
-const path = require("path");
-const fs = require("fs");
+var path = require("path");
+var fs = require("fs");
 
 var pathImage;
 module.exports.viewListProduct = (req, res) => {

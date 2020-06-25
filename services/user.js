@@ -8,10 +8,13 @@ module.exports.insert = (user) => {
     fname: user.firstname,
     lname: user.lastname,
     avatar: "avatar",
-    dateCreate: "24/12/2000",
+    dateCreate: Date.now(),
   });
-  console.log(userInsert);
-  userInsert.save((err, res) => {
+  return userInsert.save();
+};
+
+module.exports.findUserByEmail = (_email) => {
+  return userSchema.findOne({ email: _email }, (err, res) => {
     if (err) {
       return err;
     } else {
@@ -20,8 +23,18 @@ module.exports.insert = (user) => {
   });
 };
 
-module.exports.findUserByEmail = async (emailName) => {
-  return userSchema.findOne({ email: emailName }, (err, res) => {
+module.exports.findUserById = (id) => {
+  return userSchema.findOne({ _id: id }, (err, res) => {
+    if (err) {
+      return err;
+    } else {
+      return res;
+    }
+  });
+};
+
+module.exports.findUserByIsUser = (number) => {
+  return userSchema.find({ isUser: 0 }, (err, res) => {
     if (err) {
       return err;
     } else {
