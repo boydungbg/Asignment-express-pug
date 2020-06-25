@@ -14,12 +14,12 @@ module.exports.addProductGet = (req, res) => {
 };
 module.exports.addProductValid = (req, res, next) => {
   console.log(req.body);
-  res.render("admin/product/add-product", {
-    title: "Admin Cozastore - List Products",
-    isValid: "is-invalid",
-    errMessageName: "Name must me string",
-  });
-  //   next();
+  // res.render("admin/product/add-product", {
+  //   title: "Admin Cozastore - List Products",
+  //   isValid: "is-invalid",
+  //   errMessageName: "Name must me string",
+  // });
+  next();
 };
 module.exports.uploadFile = (req, res, next) => {
   pathImage = [];
@@ -29,8 +29,8 @@ module.exports.uploadFile = (req, res, next) => {
       __dirname,
       "../../public/images/product/" + req.files[i].originalname
     );
-    // console.log(targetPath);
-    // console.log(req.files[i].path);
+    console.log(targetPath);
+    console.log(req.files[i].path);
     if (
       path.extname(req.files[i].originalname).toLowerCase() === ".png" ||
       path.extname(req.files[i].originalname).toLowerCase() === ".jpg" ||
