@@ -28,6 +28,7 @@ module.exports.loginPost = async (req, res) => {
         resave: false,
       });
       if (req.body.remember === "on") {
+        cookieParser();
       }
     }
   }
