@@ -1,0 +1,135 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description', content='')
+  meta(name='author', content='')
+  title= title
+  // Custom fonts for this template
+  link(href='/vendor/fontawesome-free/css/all.min.css', rel='stylesheet', type='text/css')
+  link(href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i', rel='stylesheet')
+  // Custom styles for this template
+  link(href='/css/sb-admin-2.min.css', rel='stylesheet')
+  // Custom styles for this page
+  link(href='/vendor/datatables/dataTables.bootstrap4.min.css', rel='stylesheet')
+// Page Wrapper
+#wrapper
+  // Sidebar
+  include ../layout/nav-left.pug
+  // Content Wrapper
+  #content-wrapper.d-flex.flex-column
+    // Main Content
+    #content
+      // Topbar
+      include ../layout/nav-top.pug
+      // End of Topbar
+      .container
+        .row
+            h1 
+             b Update Product
+        .row
+            .col-sm-12
+                .text-center
+                    form(action="/admin/product/update-product/"+valueProduct._id+"" method="POST" enctype="multipart/form-data")
+                        .row
+                            h4.m-4
+                                b.text-sm-center Product content
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputName') Name
+                            .col-sm-8
+                                input#inputName.form-control.col-sm-7(type='text' name = "name" placeholder ="Name product (ex:bla)" required value=valueProduct.name)
+                        .form-group.row 
+                            label.col-sm-4.col-form-label(for='inputPrice') Price
+                            .col-sm-8
+                                input#inputPrice.form-control.col-sm-7(type='text' name = "price" placeholder ="Price product (ex:29$)" required value=valueProduct.price)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputCategory') Category
+                            .col-sm-8
+                             input#inputCategory.form-control.col-sm-7(type='text' name = "category" placeholder ="Category product" required disabled value=valueProduct.category)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputSubcategory') Subcategory
+                            .col-sm-8
+                             input#inputSubcategory.form-control.col-sm-7(type='text' name = "subcategory" placeholder ="Subcategory product" required disabled value=valueProduct.subcategory)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputIntroduce') Introduce
+                            .col-sm-8
+                                textarea#inputIntroduce.form-control.col-sm-7(name="introduce", cols="30", rows="5" placeholder="Introduce product" required) #{valueProduct.introduce}
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputDescription') Description
+                            .col-sm-8
+                                textarea#inputDescription.form-control.col-sm-7(name="description", cols="30", rows="5" placeholder="Description product" required) #{valueProduct.description}
+                        .row
+                            h4.m-4
+                                b.text-sm-center Product Option
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputWeight') Weight
+                            .col-sm-8
+                                input#inputWeight.form-control.col-sm-7(type='text' name = "weight" placeholder ="Weight product (ex: 0.79)" required value=valueProduct.weight)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputDimensions') Dimensions
+                            .col-sm-8
+                                .d-flex.align-items-center.col-sm-7.justify-content-between.pl-0.pr-0
+                                    input#inputDimensions.form-control.col-sm-3(type='text' name = "chest" placeholder ="Chest" required value=valueProduct.dimensions.chest)
+                                    div x
+                                    input#inputDimensions.form-control.col-sm-3(type='text' name = "length" placeholder ="Length" required value=valueProduct.dimensions.length)
+                                    div x
+                                    input#inputDimensions.form-control.col-sm-3(type='text' name = "sleeve" placeholder = "Sleeve" required value=valueProduct.dimensions.sleeve)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputMaterials') Materials
+                            .col-sm-8
+                                input#inputColor.form-control.col-sm-7(type='text' name = "materials" placeholder ="Materials product (ex:60)" required value=valueProduct.materials)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputColor') Color
+                            .col-sm-8
+                                input#inputColor.form-control.col-sm-7(type='text' name = "color" placeholder ="Color product (ex:red,black,white,...)" required value=valueProduct.colorString)
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputSize') Size
+                            .col-sm-8
+                                input#inputSize.form-control.col-sm-7(type='text' name = "size" placeholder ="Size product (ex:S,M,L,XL,XXL or FreeSize)" required value=valueProduct.sizeString)
+                        div#image-path(image = valueProduct.image)
+                            div#list-image
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for='inputImage')
+                            .col-sm-8.pl-0
+                                input#inputImage.form-control-file.col-sm-7(type='file' name="image" accept=".png, .jpeg, .jpg," value="C:/Users/luvso/Downloads/Untitled.png" multiple)
+                        .col-sm-9.d-flex
+                            button.btn.btn-success.ml-auto.mb-5.mr-3(type="button" data-toggle="modal" data-target="#exampleModal") Update product
+                            #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                                .modal-dialog
+                                    .modal-content
+                                        .modal-header
+                                            h5#exampleModalLabel.modal-title Product update
+                                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                                span(aria-hidden='true') &times;
+                                        .modal-body Are you sure you want to update the product
+                                        .modal-footer
+                                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                                            button.btn.btn-primary Save changes
+    // End of Main Content
+    // Footer
+    footer.sticky-footer.bg-white
+      .container.my-auto
+        .copyright.text-center.my-auto
+          span Copyright &copy; Your Website 2020
+    // End of Footer
+  // End of Content Wrapper
+// End of Page Wrapper
+// Scroll to Top Button
+a.scroll-to-top.rounded(href='#page-top')
+  i.fas.fa-angle-up
+// Logout Modal
+include ../layout/motal-logout
+// Bootstrap core JavaScript
+script(src='/vendor/jquery/jquery.min.js')
+script(src='/vendor/bootstrap/js/bootstrap.bundle.min.js')
+// Core plugin JavaScript
+script(src='/vendor/jquery-easing/jquery.easing.min.js')
+// Custom scripts for all pages
+script(src='/js/sb-admin-2.min.js')
+// Page level plugins
+script(src='/vendor/datatables/jquery.dataTables.min.js')
+script(src='/vendor/datatables/dataTables.bootstrap4.min.js')
+// Page level custom scripts
+script(src='/js/demo/datatables-demo.js')
+script(src='/js/admin/product.js')

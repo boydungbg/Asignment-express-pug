@@ -73,13 +73,7 @@ header.header-v4
             li
               a(href='/cozastore/contact') Contact
         // Icon header
-        .wrap-icon-header.flex-w.flex-r-m
-          .icon-header-item.cl2.hov-cl1.trans-04.p-l-22.p-r-11.js-show-modal-search
-            i.zmdi.zmdi-search
-          .icon-header-item.cl2.hov-cl1.trans-04.p-l-22.p-r-11.icon-header-noti.js-show-cart(data-notify='2')
-            i.zmdi.zmdi-shopping-cart
-          a.icon-header-item.cl2.hov-cl1.trans-04.p-l-22.p-r-11.icon-header-noti(href='#', data-notify='0')
-            i.zmdi.zmdi-favorite-outline
+        include ../layout/icon-header.pug
   // Header Mobile
   .wrap-header-mobile
     // Logo moblie
@@ -146,48 +140,7 @@ header.header-v4
           i.zmdi.zmdi-search
         input.plh3(type='text', name='search', placeholder='Search...')
 // Cart
-.wrap-header-cart.js-panel-cart
-  .s-full.js-hide-cart
-  .header-cart.flex-col-l.p-l-65.p-r-25
-    .header-cart-title.flex-w.flex-sb-m.p-b-8
-      span.mtext-103.cl2
-        | Your Cart
-      .fs-35.lh-10.cl2.p-lr-5.pointer.hov-cl1.trans-04.js-hide-cart
-        i.zmdi.zmdi-close
-    .header-cart-content.flex-w.js-pscroll
-      ul.header-cart-wrapitem.w-full
-        li.header-cart-item.flex-w.flex-t.m-b-12
-          .header-cart-item-img
-            img(src='/images/item-cart-01.jpg', alt='IMG')
-          .header-cart-item-txt.p-t-8
-            a.header-cart-item-name.m-b-18.hov-cl1.trans-04(href='#')
-              | White Shirt Pleat
-            span.header-cart-item-info
-              | 1 x $19.00
-        li.header-cart-item.flex-w.flex-t.m-b-12
-          .header-cart-item-img
-            img(src='/images/item-cart-02.jpg', alt='IMG')
-          .header-cart-item-txt.p-t-8
-            a.header-cart-item-name.m-b-18.hov-cl1.trans-04(href='#')
-              | Converse All Star
-            span.header-cart-item-info
-              | 1 x $39.00
-        li.header-cart-item.flex-w.flex-t.m-b-12
-          .header-cart-item-img
-            img(src='/images/item-cart-03.jpg', alt='IMG')
-          .header-cart-item-txt.p-t-8
-            a.header-cart-item-name.m-b-18.hov-cl1.trans-04(href='#')
-              | Nixon Porter Leather
-            span.header-cart-item-info
-              | 1 x $17.00
-      .w-full
-        .header-cart-total.w-full.p-tb-40
-          | Total: $75.00
-        .header-cart-buttons.flex-w.w-full
-          a.flex-c-m.stext-101.cl0.size-107.bg3.bor2.hov-btn3.p-lr-15.trans-04.m-r-8.m-b-10(href='/cozastore/shoping-cart')
-            | View Cart
-          a.flex-c-m.stext-101.cl0.size-107.bg3.bor2.hov-btn3.p-lr-15.trans-04.m-b-10(href='/cozastore/shoping-cart')
-            | Check Out
+include ../layout/cart.pug
 // breadcrumb
 .container
   .bread-crumb.flex-w.p-l-25.p-r-15.p-t-30.p-lr-0-lg
@@ -210,34 +163,22 @@ form.bg0.p-t-75.p-b-85
                 th.column-3 Price
                 th.column-4 Quantity
                 th.column-5 Total
-              tr.table_row
-                td.column-1
-                  .how-itemcart1
-                    img(src='/images/item-cart-04.jpg', alt='IMG')
-                td.column-2 Fresh Strawberries
-                td.column-3 $ 36.00
-                td.column-4
-                  .wrap-num-product.flex-w.m-l-auto.m-r-0
-                    .btn-num-product-down.cl8.hov-btn3.trans-04.flex-c-m
-                      i.fs-16.zmdi.zmdi-minus
-                    input.mtext-104.cl3.txt-center.num-product(type='number', name='num-product1', value='1')
-                    .btn-num-product-up.cl8.hov-btn3.trans-04.flex-c-m
-                      i.fs-16.zmdi.zmdi-plus
-                td.column-5 $ 36.00
-              tr.table_row
-                td.column-1
-                  .how-itemcart1
-                    img(src='/images/item-cart-05.jpg', alt='IMG')
-                td.column-2 Lightweight Jacket
-                td.column-3 $ 16.00
-                td.column-4
-                  .wrap-num-product.flex-w.m-l-auto.m-r-0
-                    .btn-num-product-down.cl8.hov-btn3.trans-04.flex-c-m
-                      i.fs-16.zmdi.zmdi-minus
-                    input.mtext-104.cl3.txt-center.num-product(type='number', name='num-product2', value='1')
-                    .btn-num-product-up.cl8.hov-btn3.trans-04.flex-c-m
-                      i.fs-16.zmdi.zmdi-plus
-                td.column-5 $ 16.00
+              -if (carts)
+                each cart in carts
+                  tr.table_row
+                    td.column-1
+                      .how-itemcart1
+                        img(src=cart.product.image[0], alt='IMG')
+                    td.column-2 #{cart.product.name}
+                    td.column-3 $ #{cart.product.price}
+                    td.column-4
+                      .wrap-num-product.flex-w.m-l-auto.m-r-0
+                        .btn-num-product-down.cl8.hov-btn3.trans-04.flex-c-m
+                          i.fs-16.zmdi.zmdi-minus
+                        input.mtext-104.cl3.txt-center.num-product(type='number', name='num-product1', value=cart.quantity)
+                        .btn-num-product-up.cl8.hov-btn3.trans-04.flex-c-m
+                          i.fs-16.zmdi.zmdi-plus
+                    td.column-5 #{cart.quantity * cart.product.price}
           .flex-w.flex-sb-m.bor15.p-t-18.p-b-15.p-lr-40.p-lr-15-sm
             .flex-w.flex-m.m-r-20.m-tb-5
               input.stext-104.cl2.plh4.size-117.bor13.p-lr-20.m-r-10.m-tb-5(type='text', name='coupon', placeholder='Coupon Code')
@@ -255,7 +196,7 @@ form.bg0.p-t-75.p-b-85
                 | Subtotal:
             .size-209
               span.mtext-110.cl2
-                | $79.65
+                | $#{total}
           .flex-w.flex-t.bor12.p-t-15.p-b-30
             .size-208.w-full-ssm
               span.stext-110.cl2
@@ -285,7 +226,7 @@ form.bg0.p-t-75.p-b-85
                 | Total:
             .size-209.p-t-1
               span.mtext-110.cl2
-                | $79.65
+                | $$#{total}
           button.flex-c-m.stext-101.cl0.size-116.bg3.bor14.hov-btn3.p-lr-15.trans-04.pointer
             | Proceed to Checkout
 // Footer

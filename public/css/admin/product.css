@@ -1,0 +1,26 @@
+p.product a img {
+  visibility: hidden;
+  position: absolute;
+  width: 10rem;
+  height: 7rem;
+}
+p.product a {
+  position: relative;
+  display: block;
+}
+
+p.product {
+  margin: 0;
+}
+p.product a:hover img {
+  visibility: visible;
+  display: block;
+  z-index: 9999;
+}
+
+p.link-detail {
+  white-space: nowrap;
+  width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

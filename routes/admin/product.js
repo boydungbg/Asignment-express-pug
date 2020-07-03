@@ -18,9 +18,21 @@ router.get("/add-product", productController.addProductGet);
 router.post(
   "/add-product",
   upload.array("image", 12),
-  productController.addProductValid,
   productController.uploadFile,
-  productController.addProductDB
+  productController.saveProductDB
 );
+
+router.get("/update-product/:_id", productController.updateProduct);
+
+router.post(
+  "/update-product/:_id",
+  upload.array("image", 12),
+  productController.uploadFileUpdate,
+  productController.saveProductUpdate
+);
+
+router.get("/update-product-status/:_id/", productController.updateStatus);
+
+router.get("/open-modal-update/:id", productController.openModalChangeStatus);
 
 module.exports = router;

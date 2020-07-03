@@ -1,0 +1,46 @@
+ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordion
+    // Sidebar - Brand
+    a.sidebar-brand.d-flex.align-items-center.justify-content-center(href='/admin/index')
+      .sidebar-brand-icon.rotate-n-15
+        i.fas.fa-laugh-wink
+      .sidebar-brand-text.mx-3
+        | Cozastore Admin 
+        sup 2
+    // Divider
+    hr.sidebar-divider.my-0
+    // Nav Item - Dashboard
+    li.nav-item.active
+      a.nav-link(href='/admin/index')
+        i.fas.fa-fw.fa-tachometer-alt
+        span Dashboard
+    // Divider
+    hr.sidebar-divider
+    // Heading
+    .sidebar-heading
+      | Interface
+    // Nav Item - Pages Collapse Menu
+    li.nav-item
+      a.nav-link.collapsed(href='#', data-toggle='collapse', data-target='#collapseTwo', aria-expanded='true', aria-controls='collapseTwo')
+        i.fas.fa-fw.fa-cog
+        span Management
+      #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionSidebar')
+        .bg-white.py-2.collapse-inner.rounded
+          h6.collapse-header Custom Management:
+          a.collapse-item(href='/admin/user') Users
+          a.collapse-item(href='/admin/product') Products
+    // Nav Item - Utilities Collapse Menu
+    li.nav-item
+      a.nav-link.collapsed(href='#', data-toggle='collapse', data-target='#collapseUtilities', aria-expanded='true', aria-controls='collapseUtilities')
+        i.fas.fa-fw.fa-wrench
+        span Utilities
+      #collapseUtilities.collapse(aria-labelledby='headingUtilities', data-parent='#accordionSidebar')
+        .bg-white.py-2.collapse-inner.rounded
+          h6.collapse-header Custom Utilities:
+          a.collapse-item(href='#') Category
+    // Divider
+    // HeadingProjects
+    // Divider
+    hr.sidebar-divider.d-none.d-md-block
+    // Sidebar Toggler (Sidebar)
+    .text-center.d-none.d-md-inline
+      button#sidebarToggle.rounded-circle.border-0
