@@ -28,6 +28,8 @@ module.exports.loginPost = async (req, res) => {
           expires: new Date(Date.now() + 9000000),
           httpOnly: true,
         });
+      } else {
+        req.session._user = user._id;
       }
       if (user.isUser === 2) {
         res.redirect('/admin/index');
