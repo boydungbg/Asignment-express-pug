@@ -1,7 +1,8 @@
 {
-  "name": "asm",
-  "version": "0.0.0",
-  "private": true,
+  "name": "cozastore",
+  "version": "0.0.1",
+  "private": false,
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js"
@@ -27,5 +28,14 @@
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
-  "homepage": "."
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": ""
 }

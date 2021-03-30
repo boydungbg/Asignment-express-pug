@@ -33,14 +33,19 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('ASDFADSFASDF123123'));
+app.use(cookieParser('secret'));
 app.use(
   session({
-    secret: 'aewqwerqwefasdf123123',
-    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      maxAge: 60000,
+    },
+    secret: 'secret',
+    saveUninitialized: true,
     resave: false,
   })
 );
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/cozastore/index', middlewareCheckCart.checkCartShoping, indexRouter);
