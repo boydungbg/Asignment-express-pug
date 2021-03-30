@@ -30,23 +30,13 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-function randomSecret(length) {
-  var cheracter =
-    '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-  var sec = '';
-  for (let index = 0; index < length; index++) {
-    sec += cheracter[Math.floor(Math.random() * cheracter.length)];
-  }
-  return sec;
-}
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(randomSecret(10)));
+app.use(cookieParser('ASDFADSFASDF123123'));
 app.use(
   session({
-    secret: randomSecret(10),
+    secret: 'aewqwerqwefasdf123123',
     saveUninitialized: false,
     resave: false,
   })
@@ -112,6 +102,6 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(3000, () => {
-  console.log('Server is running on 3001!');
+  console.log('Server is running on 3000!');
 });
 module.exports = app;
