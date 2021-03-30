@@ -91,7 +91,7 @@ app.use(
 // });
 
 app.use('/', function (req, res) {
-  res.redirect('/cozastore/login');
+  res.redirect('/cozastore/index');
 });
 
 // error handler
