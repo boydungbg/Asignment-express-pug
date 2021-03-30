@@ -1,9 +1,9 @@
-var userService = require("../services/user.js");
-const { use } = require("../routes/login.js");
+var userService = require('../services/user.js');
+const { use } = require('../routes/login.js');
 
 module.exports.loginGet = (req, res) => {
-  res.render("cozastore/login", {
-    title: "Login",
+  res.render('cozastore/login', {
+    title: 'Login',
   });
 };
 
@@ -13,33 +13,39 @@ module.exports.loginPost = async (req, res) => {
     .then((result) => result)
     .catch((err) => console.log(err));
   if (user == null) {
-    res.render("cozastore/login", {
-      title: "Login",
-      err: "Email or password wrong",
+    res.render('cozastore/login', {
+      title: 'Login',
+      err: 'Email or password wrong',
       valueUser: req.body,
     });
     return;
   } else {
     if (user.password === req.body.password) {
       req.session._user = user._id;
-      if (req.body.remember === "on") {
-        res.cookie("_user", user._id, {
+      if (req.body.remember === 'on') {
+        res.cookie('_user', user._id, {
           signed: true,
           expires: new Date(Date.now() + 9000000),
           httpOnly: true,
         });
+      } else {
+        res.cookie('_user', user._id, {
+          signed: true,
+          expires: new Date(Date.now() + 3600),
+          httpOnly: true,
+        });
       }
       if (user.isUser === 2) {
-        res.redirect("/admin/index");
+        res.redirect('/admin/index');
       } else {
         console.log(user);
-        res.redirect("/cozastore/index");
+        res.redirect('/cozastore/index');
       }
       return;
     } else {
-      res.render("cozastore/login", {
-        title: "Login",
-        err: "Email or password wrong",
+      res.render('cozastore/login', {
+        title: 'Login',
+        err: 'Email or password wrong',
         valueUser: req.body,
       });
     }
@@ -47,7 +53,7 @@ module.exports.loginPost = async (req, res) => {
 };
 
 module.exports.logOut = (req, res) => {
-  res.clearCookie("_user");
+  res.clearCookie('_user');
   req.session.destroy();
-  res.redirect("/cozastore/index");
+  res.redirect('/cozastore/index');
 };
