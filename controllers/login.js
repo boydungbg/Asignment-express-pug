@@ -28,12 +28,6 @@ module.exports.loginPost = async (req, res) => {
           expires: new Date(Date.now() + 9000000),
           httpOnly: true,
         });
-      } else {
-        res.cookie('_user', user._id, {
-          signed: true,
-          expires: new Date(Date.now() + 3600),
-          httpOnly: true,
-        });
       }
       if (user.isUser === 2) {
         res.redirect('/admin/index');
